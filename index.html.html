@@ -1052,8 +1052,22 @@
             }
           });
           
+          // MERGE ADP from ranksData if available
+          let adpValue = p.adp;
+          if (ranksData && ranksData.length > 0) {
+            const match = ranksData.find(r => 
+              r.name === p.name && 
+              r.position === p.position && 
+              r.team === p.team
+            );
+            if (match && match.adp) {
+              adpValue = match.adp;
+            }
+          }
+          
           return {
             ...p,
+            adp: adpValue,  // Use merged ADP value
             exposure: ((p.count / totalTeams) * 100).toFixed(1),
             avgRound: (p.rounds.reduce((a, b) => a + b, 0) / p.rounds.length).toFixed(1),
             avgPick: (p.overallPicks.reduce((a, b) => a + b, 0) / p.overallPicks.length).toFixed(1),
@@ -1064,7 +1078,7 @@
             totalEntryFee: totalEntryFee
           };
         });
-      }, [filteredDrafts]);
+      }, [filteredDrafts, ranksData]);
 
       const sortedExposure = useMemo(() => {
         let filtered = [...exposureData];
