@@ -1,0 +1,2158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Optimal Fantasy Tools - Best Ball Rankings for Underdog Fantasy</title>
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="/logo-512.png">
+  <link rel="apple-touch-icon" href="/logo-512.png">
+  
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Free best ball rankings tool for Underdog Fantasy. Import Underdog CSV, create custom rankings, drag and drop to reorder. Export and sync with portfolio tracker.">
+  <meta name="keywords" content="underdog fantasy rankings, best ball rankings, underdog player rankings, free rankings tool, best ball draft rankings, underdog fantasy tools, player rankings best ball, draft rankings underdog, fantasy football rankings, best ball cheat sheet, underdog draft tool, best ball mania rankings, BBM7 rankings">
+  <meta name="author" content="Optimal Fantasy Tools">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://optimalfantasytools.com/rankings">
+  <meta property="og:title" content="Optimal Fantasy Tools - Best Ball Rankings">
+  <meta property="og:description" content="Free best ball rankings tool for Underdog Fantasy. Import, customize, and export your player rankings.">
+  <meta property="og:image" content="https://optimalfantasytools.com/logo-512.png">
+  <meta property="og:site_name" content="Optimal Fantasy Tools">
+  
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://optimalfantasytools.com/rankings">
+  <meta name="twitter:title" content="Optimal Fantasy Tools - Best Ball Rankings">
+  <meta name="twitter:description" content="Free best ball rankings tool for Underdog Fantasy. Import, customize, and export your player rankings.">
+  <meta name="twitter:image" content="https://optimalfantasytools.com/logo-512.png">
+  
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://optimalfantasytools.com/rankings">
+  
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700;900&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Roboto', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #0a0e16;
+      color: #f9fafb;
+      min-height: 100vh;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    
+    button, a, input, select {
+      transition: all 0.2s ease;
+    }
+    
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+      background: rgba(100, 100, 100, 0.3);
+      border-radius: 4px;
+    }
+    
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(100, 100, 100, 0.5);
+    }
+
+    /* Top bar matching tracker */
+    .top-bar {
+      background: linear-gradient(180deg, #111827 0%, #0a0e16 100%);
+      padding: 1rem 2rem;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+      border-bottom: 1px solid #374151;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .top-bar-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #f9fafb;
+      letter-spacing: -0.8px;
+    }
+
+    .tagline {
+      font-size: 0.7rem;
+      color: #9ca3af;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+    
+    /* Navigation links */
+    .nav-links {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+    }
+    
+    .nav-link {
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: #9ca3af;
+      text-decoration: none;
+      transition: all 0.2s;
+      border: 1px solid transparent;
+    }
+    
+    .nav-link:hover {
+      color: #f9fafb;
+      background: #1f2937;
+      border-color: #374151;
+    }
+    
+    .nav-link.active {
+      color: #f9fafb;
+      background: #93c5fd;
+      border-color: #93c5fd;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+    
+    /* Help banner for new users */
+    .help-banner {
+      background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+      border: 1px solid #3b82f6;
+      border-radius: 8px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+      display: flex;
+      align-items: start;
+      gap: 1rem;
+    }
+    
+    .help-banner-icon {
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+    
+    .help-banner-content {
+      flex: 1;
+    }
+    
+    .help-banner-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #93c5fd;
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.2px;
+    }
+    
+    .help-banner-text {
+      font-size: 0.875rem;
+      color: #e0e7ff;
+      line-height: 1.6;
+      margin: 0;
+    }
+    
+    .help-banner-text strong {
+      color: #ffffff;
+      font-weight: 700;
+    }
+    
+    .help-banner-close {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 4px;
+      color: #e0e7ff;
+      font-size: 1.25rem;
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      flex-shrink: 0;
+    }
+    
+    .help-banner-close:hover {
+      background: rgba(255, 255, 255, 0.2);
+      color: #ffffff;
+    }
+
+    header {
+      margin-bottom: 2rem;
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      color: #e8eaed;
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.8px;
+    }
+
+    .subtitle {
+      font-size: 0.875rem;
+      color: #9ca3af;
+      font-weight: 500;
+    }
+
+    .controls {
+      background: #111827;
+      border: 1px solid #374151;
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .search-box {
+      flex: 1;
+      min-width: 300px;
+      max-width: 500px;
+      position: relative;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      background: #0a0e16;
+      border: 1px solid #374151;
+      border-radius: 6px;
+      color: #f9fafb;
+      font-family: 'Roboto', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 0.875rem;
+      transition: all 0.2s;
+    }
+
+    .search-box input:focus {
+      outline: none;
+      border-color: #93c5fd;
+      background: #111827;
+    }
+
+    .search-box input::placeholder {
+      color: #6b7280;
+    }
+
+    .filter-group {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      padding: 0.625rem 1rem;
+      background: #0a0e16;
+      border: 1px solid #374151;
+      border-radius: 6px;
+      color: #9ca3af;
+      font-family: 'Roboto', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 0.875rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .filter-btn:hover {
+      border-color: #93c5fd;
+      color: #f9fafb;
+      background: #111827;
+    }
+
+    .filter-btn.active {
+      background: #93c5fd;
+      border-color: #93c5fd;
+      color: #0a0e16;
+    }
+
+    /* Density toggle styles */
+    .density-toggle {
+      display: flex;
+      gap: 0;
+      background: #0a0e16;
+      border: 1px solid #374151;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .density-btn {
+      padding: 0.625rem 0.875rem;
+      background: transparent;
+      border: none;
+      color: #9ca3af;
+      font-family: 'Roboto', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      border-right: 1px solid #374151;
+      letter-spacing: 0.3px;
+    }
+
+    .density-btn:last-child {
+      border-right: none;
+    }
+
+    .density-btn:hover {
+      color: #f9fafb;
+      background: #111827;
+    }
+
+    .density-btn.active {
+      background: #93c5fd;
+      color: #0a0e16;
+    }
+
+    /* Sort dropdown styles */
+    .sort-select {
+      padding: 0.625rem 1rem;
+      background: #0a0e16;
+      border: 1px solid #374151;
+      border-radius: 6px;
+      color: #f9fafb;
+      font-family: 'Roboto', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 0.875rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      min-width: 160px;
+    }
+
+    .sort-select:hover {
+      border-color: #3b8ea5;
+      background: #0d1117;
+    }
+
+    .sort-select:focus {
+      outline: none;
+      border-color: #93c5fd;
+      background: #111827;
+    }
+
+    .sort-label {
+      font-size: 0.7rem;
+      color: #9ca3af;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      font-weight: 700;
+      margin-right: 0.5rem;
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .export-btn {
+      padding: 0.625rem 1rem;
+      background: #93c5fd;
+      border: none;
+      border-radius: 6px;
+      color: #0a0e16;
+      font-family: 'Roboto', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 0.875rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .export-btn:hover {
+      background: #60a5fa;
+    }
+
+    .export-btn:active {
+      transform: scale(0.98);
+    }
+      background: #0d1117;
+      border: 1px solid #3b8ea5;
+      color: #3b8ea5;
+    }
+
+    #importTextBtn:hover {
+      background: #3b8ea5;
+      color: #ffffff;
+    }
+
+    #clearBtn {
+      background: #0d1117;
+      border: 1px solid #484f58;
+      color: #7d8590;
+    }
+
+    #clearBtn:hover {
+      background: #374151;
+      color: #f9fafb;
+      border-color: #9ca3af;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .stat-card {
+      background: #111827;
+      border: 1px solid #374151;
+      border-radius: 8px;
+      padding: 1rem;
+    }
+
+    .stat-label {
+      font-size: 0.7rem;
+      color: #9ca3af;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 0.5rem;
+      font-weight: 700;
+    }
+
+    .stat-value {
+      font-size: 1.75rem;
+      font-weight: 800;
+      color: #f9fafb;
+      line-height: 1;
+    }
+
+    .player-list {
+      background: #111827;
+      border: 1px solid #374151;
+      border-radius: 8px;
+      padding: 0.5rem;
+      min-height: 300px;
+      max-height: calc(100vh - 400px);
+      overflow-y: auto;
+      position: relative;
+    }
+
+    .player-list::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .player-list::-webkit-scrollbar-track {
+      background: #0a0e16;
+      border-radius: 4px;
+    }
+
+    .player-list::-webkit-scrollbar-thumb {
+      background: #374151;
+      border-radius: 4px;
+    }
+
+    .player-list::-webkit-scrollbar-thumb:hover {
+      background: #4b5563;
+    }
+
+    .player-item {
+      background: #0a0e16;
+      border: 1px solid #374151;
+      border-radius: 6px;
+      margin-bottom: 0.5rem;
+      cursor: grab;
+      transition: all 0.15s;
+      display: grid;
+      grid-template-columns: 50px 1fr 70px 70px 80px;
+      gap: 0.75rem;
+      align-items: center;
+      padding: 0.75rem;
+    }
+
+    /* Density variations - UPDATED: Dense becomes Comfortable, more aggressive compact views */
+    .player-item.comfortable {
+      padding: 0.5rem 0.625rem;
+      gap: 0.5rem;
+      grid-template-columns: 45px 1fr 75px 65px 70px auto;
+      margin-bottom: 0.4rem;
+    }
+
+    .player-item.compact {
+      padding: 0.4rem 0.5rem;
+      gap: 0.4rem;
+      grid-template-columns: 40px 1fr 70px 60px 65px auto;
+      margin-bottom: 0.3rem;
+    }
+
+    .player-item.dense {
+      padding: 0.3rem 0.4rem;
+      gap: 0.35rem;
+      grid-template-columns: 38px 1fr 65px 55px 60px auto;
+      margin-bottom: 0.25rem;
+    }
+
+    .player-item:hover {
+      background: #0d1117;
+      border-color: #3b8ea5;
+      transform: translateX(2px);
+    }
+
+    .player-item.dragging {
+      opacity: 0.5;
+      cursor: grabbing;
+    }
+
+    .player-item.drag-over {
+      border-color: #93c5fd;
+      border-width: 2px;
+      background: rgba(147, 197, 253, 0.1);
+    }
+
+    /* Drop indicator line */
+    .drop-indicator {
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: #93c5fd;
+      pointer-events: none;
+      z-index: 1000;
+      box-shadow: 0 0 12px rgba(147, 197, 253, 0.8);
+      transition: top 0.1s ease-out;
+    }
+
+    .drop-indicator::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 8px;
+      height: 8px;
+      background: #93c5fd;
+      border-radius: 50%;
+      box-shadow: 0 0 6px rgba(147, 197, 253, 0.8);
+    }
+
+    .drop-indicator::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 8px;
+      height: 8px;
+      background: #93c5fd;
+      border-radius: 50%;
+      box-shadow: 0 0 6px rgba(147, 197, 253, 0.8);
+    }
+
+    /* Improved drag styling */
+    .player-item.dragging {
+      opacity: 0.3;
+      cursor: grabbing;
+      transform: scale(0.98);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    }
+    
+    /* Ghost preview - semi-transparent copy at drop position */
+    .drag-ghost {
+      opacity: 0.5 !important;
+      pointer-events: none;
+      transform: scale(1.02);
+      box-shadow: 0 12px 24px rgba(147, 197, 253, 0.4);
+      border: 2px solid #93c5fd !important;
+      animation: ghostPulse 1s ease-in-out infinite;
+    }
+    
+    @keyframes ghostPulse {
+      0%, 100% { opacity: 0.4; }
+      50% { opacity: 0.6; }
+    }
+
+    .player-item:active {
+      cursor: grabbing;
+    }
+
+    .rank {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #93c5fd;
+      text-align: center;
+      line-height: 1;
+    }
+
+    .comfortable .rank { font-size: 1rem; }
+    .compact .rank { font-size: 0.9rem; }
+    .dense .rank { font-size: 0.85rem; }
+
+    .player-info {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .comfortable .player-info { gap: 0.15rem; }
+    .compact .player-info { gap: 0.1rem; }
+    .dense .player-info { gap: 0.08rem; }
+
+    .player-name {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #f9fafb;
+      letter-spacing: -0.2px;
+    }
+
+    .comfortable .player-name { font-size: 0.8rem; }
+    .compact .player-name { font-size: 0.75rem; }
+    .dense .player-name { font-size: 0.7rem; }
+
+    .player-meta {
+      font-size: 0.75rem;
+      color: #9ca3af;
+      font-weight: 500;
+    }
+
+    .comfortable .player-meta { font-size: 0.7rem; }
+    .compact .player-meta { font-size: 0.65rem; }
+    .dense .player-meta { font-size: 0.625rem; }
+
+    .position-badge {
+      display: inline-block;
+      padding: 0.3rem 0.6rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 800;
+      text-align: center;
+      letter-spacing: 0.3px;
+    }
+
+    .comfortable .position-badge { padding: 0.25rem 0.5rem; font-size: 0.7rem; }
+    .compact .position-badge { padding: 0.2rem 0.4rem; font-size: 0.65rem; }
+    .dense .position-badge { padding: 0.175rem 0.35rem; font-size: 0.625rem; }
+
+    .position-QB { background: #dc2626; color: #ffffff; border: none; }
+    .position-RB { background: #16a34a; color: #ffffff; border: none; }
+    .position-WR { background: #2563eb; color: #ffffff; border: none; }
+    .position-TE { background: #ea580c; color: #ffffff; border: none; }
+
+    .adp-badge {
+      display: inline-block;
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      background: #374151;
+      color: #9ca3af;
+      text-align: center;
+    }
+
+    .comfortable .adp-badge { padding: 0.2rem 0.4rem; font-size: 0.675rem; }
+    .compact .adp-badge { padding: 0.175rem 0.35rem; font-size: 0.625rem; }
+    .dense .adp-badge { padding: 0.15rem 0.3rem; font-size: 0.6rem; }
+
+    .move-buttons {
+      display: flex;
+      gap: 0.25rem;
+      justify-content: center;
+    }
+
+    .move-btn {
+      width: 32px;
+      height: 32px;
+      background: #4b5563;
+      border: 1.5px solid #6b7280;
+      border-radius: 6px;
+      color: #ffffff;
+      font-size: 1rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .comfortable .move-btn { width: 28px; height: 28px; font-size: 0.9rem; }
+    .compact .move-btn { width: 26px; height: 26px; font-size: 0.85rem; }
+    .dense .move-btn { width: 24px; height: 24px; font-size: 0.8rem; }
+
+    .move-btn:hover {
+      background: #93c5fd;
+      border-color: #93c5fd;
+      color: #0a0e16;
+      transform: translateY(-1px);
+    }
+
+    .move-btn:active {
+      transform: scale(0.95);
+    }
+
+    /* Modal styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(4px);
+    }
+
+    .modal-content {
+      background: #111827;
+      border: 1px solid #374151;
+      border-radius: 8px;
+      margin: 5% auto;
+      padding: 2rem;
+      max-width: 600px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    }
+
+    .modal-header {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #f9fafb;
+      margin-bottom: 1rem;
+      letter-spacing: -0.5px;
+    }
+
+    .modal-body {
+      margin-bottom: 1.5rem;
+    }
+
+    .modal-body textarea {
+      width: 100%;
+      min-height: 200px;
+      padding: 1rem;
+      background: #0a0e13;
+      border: 1px solid #1c2128;
+      border-radius: 6px;
+      color: #e8eaed;
+      font-family: 'Courier New', monospace;
+      font-size: 0.875rem;
+      resize: vertical;
+    }
+
+    .modal-body textarea:focus {
+      outline: none;
+      border-color: #3b8ea5;
+    }
+
+    .modal-footer {
+      display: flex;
+      gap: 0.5rem;
+      justify-content: flex-end;
+    }
+
+    .modal-btn {
+      padding: 0.625rem 1.25rem;
+      border: none;
+      border-radius: 6px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-size: 0.875rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .modal-btn-primary {
+      background: #3b8ea5;
+      color: #ffffff;
+    }
+
+    .modal-btn-primary:hover {
+      background: #2f7488;
+    }
+
+    .modal-btn-secondary {
+      background: #1c2128;
+      color: #7d8590;
+      border: 1px solid #30363d;
+    }
+
+    .modal-btn-secondary:hover {
+      background: #30363d;
+      color: #e8eaed;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: #7d8590;
+    }
+
+    .empty-state-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      opacity: 0.5;
+    }
+
+    .empty-state-text {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .empty-state-subtext {
+      font-size: 0.875rem;
+      opacity: 0.7;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 1rem;
+      }
+
+      .player-item {
+        grid-template-columns: 40px 1fr 60px;
+        gap: 0.5rem;
+        padding: 0.5rem;
+      }
+
+      .adp-badge,
+      .move-buttons {
+        display: none;
+      }
+
+      .filter-group {
+        width: 100%;
+      }
+
+      .filter-btn {
+        flex: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="top-bar">
+    <div class="top-bar-content">
+      <div>
+        <div class="logo">OPTIMAL<span style="color: #93c5fd; font-weight: 400;">FANTASY</span></div>
+        <div class="tagline">Best Ball Rankings</div>
+      </div>
+      <nav class="nav-links">
+        <a href="/" class="nav-link">Portfolio Tracker</a>
+        <a href="/rankings" class="nav-link active">Rankings</a>
+      </nav>
+    </div>
+  </div>
+
+  <div class="container">
+    <header>
+      <p class="subtitle">
+        Drag and drop to reorder • Import from Underdog • Export to CSV
+        <span id="saveStatus" style="margin-left: 1rem; color: #3b8ea5; font-weight: 600;">Auto-saves</span>
+      </p>
+    </header>
+
+    <!-- Help Banner for New Users -->
+    <div class="help-banner" id="helpBanner">
+      <div class="help-banner-icon">💡</div>
+      <div class="help-banner-content">
+        <div class="help-banner-title">Getting Started with Rankings</div>
+        <p class="help-banner-text">
+          <strong>Sample data is loaded for demo purposes.</strong> To use your own rankings: 
+          Click <strong>Clear All</strong> to remove sample data, then click <strong>Import Underdog CSV</strong> 
+          to upload your Underdog rankings file. You can then drag & drop to reorder, and export when ready!
+        </p>
+      </div>
+      <button class="help-banner-close" onclick="document.getElementById('helpBanner').style.display='none'; localStorage.setItem('hideRankingsHelp', 'true');">×</button>
+    </div>
+
+    <div class="controls">
+      <div class="search-box">
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="Search players..."
+        />
+      </div>
+
+      <div class="filter-group">
+        <button class="filter-btn active" data-filter="ALL">ALL</button>
+        <button class="filter-btn" data-filter="QB">QB</button>
+        <button class="filter-btn" data-filter="RB">RB</button>
+        <button class="filter-btn" data-filter="WR">WR</button>
+        <button class="filter-btn" data-filter="TE">TE</button>
+        
+        <!-- Sort Dropdown -->
+        <div style="width: 1px; height: 30px; background: #1a2332; margin: 0 0.5rem;"></div>
+        <div style="display: flex; align-items: center; gap: 0.5rem;">
+          <span class="sort-label">Sort:</span>
+          <select class="sort-select" id="sortSelect">
+            <option value="rank">Your Rank</option>
+            <option value="adp">ADP (Low to High)</option>
+          </select>
+        </div>
+        
+        <!-- Density Toggle -->
+        <div style="width: 1px; height: 30px; background: #1a2332; margin: 0 0.5rem;"></div>
+        <div class="density-toggle">
+          <button class="density-btn" data-density="comfortable">COMFORTABLE</button>
+          <button class="density-btn active" data-density="compact">COMPACT</button>
+          <button class="density-btn" data-density="dense">DENSE</button>
+        </div>
+      </div>
+
+      <div class="action-buttons">
+        <button class="export-btn" id="syncPortfolioBtn" style="background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%); font-weight: 700;">
+          Sync Portfolio
+        </button>
+        <span id="exposureSyncStatus" style="font-size: 0.75rem; color: #7d8590; align-self: center;">Not synced</span>
+        <button class="export-btn" id="exportUnderdogBtn">Export Underdog CSV</button>
+        <button class="export-btn" id="importUnderdogBtn">Import Underdog CSV</button>
+        <button class="export-btn" id="clearBtn">Clear All</button>
+        <input type="file" id="importUnderdogFile" accept=".csv" style="display: none;" />
+      </div>
+    </div>
+
+    <div class="player-list" id="playerList">
+      <div class="empty-state">
+        <div class="empty-state-icon">📋</div>
+        <div class="empty-state-text">No players loaded</div>
+        <div class="empty-state-subtext">Import a CSV file or paste text to get started</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Text Import Modal -->
+  <div id="textImportModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">Import Player Rankings</div>
+      <div class="modal-body">
+        <p style="color: #8b949e; margin-bottom: 1rem; font-size: 0.875rem;">
+          Paste your player rankings in CSV format:<br>
+          <code style="color: #00a8e1;">Name, Position, Team, Rank, ADP</code>
+        </p>
+        <textarea id="textImportArea" placeholder="Patrick Mahomes, QB, KC, 1, 12.5
+Josh Allen, QB, BUF, 2, 13.2
+..."></textarea>
+      </div>
+      <div class="modal-footer">
+        <button class="modal-btn modal-btn-secondary" id="cancelTextImport">Cancel</button>
+        <button class="modal-btn modal-btn-primary" id="confirmTextImport">Import</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ============================================================================
+    // TEAM NAME MAPPING (Underdog full names to abbreviations)
+    // ============================================================================
+    
+    const TEAM_NAME_TO_ABBR = {
+      'Arizona Cardinals': 'ARI',
+      'Atlanta Falcons': 'ATL',
+      'Baltimore Ravens': 'BAL',
+      'Buffalo Bills': 'BUF',
+      'Carolina Panthers': 'CAR',
+      'Chicago Bears': 'CHI',
+      'Cincinnati Bengals': 'CIN',
+      'Cleveland Browns': 'CLE',
+      'Dallas Cowboys': 'DAL',
+      'Denver Broncos': 'DEN',
+      'Detroit Lions': 'DET',
+      'Green Bay Packers': 'GB',
+      'Houston Texans': 'HOU',
+      'Indianapolis Colts': 'IND',
+      'Jacksonville Jaguars': 'JAX',
+      'Kansas City Chiefs': 'KC',
+      'Las Vegas Raiders': 'LV',
+      'Los Angeles Chargers': 'LAC',
+      'Los Angeles Rams': 'LAR',
+      'Miami Dolphins': 'MIA',
+      'Minnesota Vikings': 'MIN',
+      'New England Patriots': 'NE',
+      'New Orleans Saints': 'NO',
+      'New York Giants': 'NYG',
+      'New York Jets': 'NYJ',
+      'Philadelphia Eagles': 'PHI',
+      'Pittsburgh Steelers': 'PIT',
+      'San Francisco 49ers': 'SF',
+      'Seattle Seahawks': 'SEA',
+      'Tampa Bay Buccaneers': 'TB',
+      'Tennessee Titans': 'TEN',
+      'Washington Commanders': 'WAS'
+    };
+    
+    const ABBR_TO_TEAM_NAME = Object.fromEntries(
+      Object.entries(TEAM_NAME_TO_ABBR).map(([name, abbr]) => [abbr, name])
+    );
+    
+    // ============================================================================
+    // LOCALSTORAGE PERSISTENCE SYSTEM
+    // ============================================================================
+    
+    const STORAGE_KEY = 'ranks_player_data';
+    
+    // Save players to localStorage
+    function saveToLocalStorage() {
+      try {
+        const dataToSave = {
+          players: players,
+          lastSaved: new Date().toISOString()
+        };
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(dataToSave));
+        updateSaveStatus();
+        console.log('✅ Rankings auto-saved!');
+      } catch (error) {
+        console.error('Failed to save rankings:', error);
+      }
+    }
+    
+    // Load players from localStorage
+    function loadFromLocalStorage() {
+      try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) {
+          const data = JSON.parse(saved);
+          
+          // Handle both old format (array) and new format (object with metadata)
+          if (Array.isArray(data)) {
+            players = data;
+          } else if (data.players) {
+            players = data.players;
+            updateSaveStatus(data.lastSaved);
+          }
+          
+          console.log(`✅ Loaded ${players.length} players from previous session`);
+          return true;
+        }
+      } catch (error) {
+        console.error('Failed to load rankings:', error);
+      }
+      return false;
+    }
+    
+    // Update save status display
+    function updateSaveStatus(lastSaved) {
+      const statusEl = document.getElementById('saveStatus');
+      if (!statusEl) return;
+      
+      if (lastSaved) {
+        const date = new Date(lastSaved);
+        const timeStr = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        statusEl.innerHTML = `Last saved: ${timeStr}`;
+      } else {
+        statusEl.innerHTML = 'Auto-saves your work';
+      }
+    }
+    
+    // Clear saved data
+    function clearSavedData() {
+      if (confirm('Clear all saved rankings? This cannot be undone.')) {
+        localStorage.removeItem(STORAGE_KEY);
+        players = [];
+        updateStats();
+        renderPlayers();
+        alert('✅ All rankings cleared!');
+      }
+    }
+    
+    // ============================================================================
+    // PLAYER DATA
+    // ============================================================================
+    
+    // Sample data - will be replaced with imported data
+    let players = [];
+
+    let currentFilter = 'ALL';
+    let searchQuery = '';
+    let draggedElement = null;
+    let draggedIndex = null;
+    let currentDensity = 'compact'; // Default to compact view
+    let currentSort = 'rank'; // Default sort by rank
+
+    // Sample CSV data for initial load (only used if no saved data)
+    const sampleCSV = `Patrick Mahomes, QB, KC, 1, 12.5
+Josh Allen, QB, BUF, 2, 13.2
+Christian McCaffrey, RB, SF, 3, 2.1
+Tyreek Hill, WR, MIA, 4, 8.3
+Justin Jefferson, WR, MIN, 5, 5.7
+Travis Kelce, TE, KC, 6, 15.8
+Brock Purdy, QB, SF, 7, 45.2
+Breece Hall, RB, NYJ, 8, 6.9
+CeeDee Lamb, WR, DAL, 9, 7.1
+Lamar Jackson, QB, BAL, 10, 18.5`;
+
+    function parseCSV() {
+      // Try to load from localStorage first
+      const loaded = loadFromLocalStorage();
+      
+      if (!loaded) {
+        // No saved data, use sample data
+        const lines = sampleCSV.trim().split('\n');
+        players = lines.map((line, index) => {
+          const parts = line.split(',').map(s => s.trim());
+          return {
+            id: index,
+            name: parts[0],
+            position: parts[1],
+            team: parts[2],
+            rank: parseInt(parts[3]),
+            adp: parts[4] ? parseFloat(parts[4]) : null
+          };
+        });
+        
+        // Save sample data to localStorage
+        saveToLocalStorage();
+      }
+      
+      updateStats();
+      renderPlayers();
+    }
+
+    function updateStats() {
+      // Stats boxes removed - function kept for compatibility
+      const totalPlayersEl = document.getElementById('totalPlayers');
+      const totalQBEl = document.getElementById('totalQB');
+      const totalRBEl = document.getElementById('totalRB');
+      const totalWREl = document.getElementById('totalWR');
+      const totalTEEl = document.getElementById('totalTE');
+      
+      if (totalPlayersEl) totalPlayersEl.textContent = players.length;
+      if (totalQBEl) totalQBEl.textContent = players.filter(p => p.position === 'QB').length;
+      if (totalRBEl) totalRBEl.textContent = players.filter(p => p.position === 'RB').length;
+      if (totalWREl) totalWREl.textContent = players.filter(p => p.position === 'WR').length;
+      if (totalTEEl) totalTEEl.textContent = players.filter(p => p.position === 'TE').length;
+    }
+
+    function getFilteredPlayers() {
+      let filtered = [...players];
+      
+      // Apply position filter
+      if (currentFilter !== 'ALL') {
+        filtered = filtered.filter(p => p.position === currentFilter);
+      }
+      
+      // Apply search
+      if (searchQuery) {
+        const query = searchQuery.toLowerCase();
+        filtered = filtered.filter(p => 
+          p.name.toLowerCase().includes(query) ||
+          p.team.toLowerCase().includes(query)
+        );
+      }
+      
+      // Apply sort
+      switch (currentSort) {
+        case 'rank':
+          return filtered.sort((a, b) => a.rank - b.rank);
+        case 'adp':
+          return filtered.sort((a, b) => {
+            // Handle null ADPs - put them at the end
+            if (a.adp === null && b.adp === null) return a.rank - b.rank;
+            if (a.adp === null) return 1;
+            if (b.adp === null) return -1;
+            return a.adp - b.adp;
+          });
+        case 'position':
+          // Sort by position first, then by rank within position
+          const positionOrder = { 'QB': 1, 'RB': 2, 'WR': 3, 'TE': 4 };
+          return filtered.sort((a, b) => {
+            const posA = positionOrder[a.position] || 99;
+            const posB = positionOrder[b.position] || 99;
+            if (posA !== posB) return posA - posB;
+            return a.rank - b.rank;
+          });
+        case 'alphabetical':
+          return filtered.sort((a, b) => a.name.localeCompare(b.name));
+        default:
+          return filtered.sort((a, b) => a.rank - b.rank);
+      }
+    }
+
+    // NFL Team Colors - must be defined before applyTeamColors function
+    const teamColors = {
+      'ARI': '#97233F', 'ARZ': '#97233F', // Arizona Cardinals (both ARI and ARZ)
+      'ATL': '#A71930', 'BAL': '#241773', 
+      'BUF': '#00338D', 'BUFF': '#00338D', // Buffalo Bills (both BUF and BUFF)
+      'CAR': '#0085CA', 'CHI': '#0B162A', 'CIN': '#FB4F14', 'CLE': '#311D00',
+      'DAL': '#003594', 'DEN': '#FB4F14', 'DET': '#0076B6', 'GB': '#203731',
+      'HOU': '#03202F', 'IND': '#002C5F', 'JAX': '#006778', 'KC': '#E31837',
+      'LAC': '#0080C6', 'LAR': '#003594', 'LV': '#000000', 'MIA': '#008E97',
+      'MIN': '#4F2683', 'NE': '#002244', 'NO': '#D3BC8D', 'NYG': '#0B2265',
+      'NYJ': '#125740', 'PHI': '#004C54', 
+      'PIT': '#FFB612', 'PITT': '#FFB612', // Pittsburgh Steelers (both PIT and PITT)
+      'SF': '#AA0000',
+      'SEA': '#002244', 'TB': '#D50A0A', 'TEN': '#0C2340', 
+      'WAS': '#5A1414', 'WSH': '#5A1414' // Washington (both WAS and WSH)
+    };
+
+    // ===== PORTFOLIO EXPOSURE INTEGRATION =====
+    let portfolioExposure = [];
+    let portfolioLastSync = null;
+
+    function loadPortfolioExposure() {
+      try {
+        const saved = localStorage.getItem('portfolio_saved_drafts');
+        if (!saved) {
+          console.log('❌ No portfolio data found in localStorage');
+          alert('No portfolio data found. Make sure you have saved drafts in the Portfolio tool first!');
+          return;
+        }
+
+        const portfolioData = JSON.parse(saved);
+        console.log('📦 Portfolio data loaded:', portfolioData);
+        
+        const drafts = portfolioData.drafts || [];
+        
+        if (drafts.length === 0) {
+          console.log('❌ No drafts in portfolio');
+          alert('No drafts found in portfolio data. Please add drafts to the Portfolio tool first!');
+          return;
+        }
+
+        console.log(`📊 Found ${drafts.length} drafts`);
+
+        // Calculate exposure from drafts
+        const playerCounts = {};
+        const totalDrafts = drafts.length;
+
+        drafts.forEach((draft, draftIdx) => {
+          // Portfolio uses 'myTeam' not 'picks'
+          const team = draft.myTeam || [];
+          console.log(`Draft ${draftIdx + 1} (${draft.name}): ${team.length} players`);
+          team.forEach(player => {
+            const key = `${player.name}|${player.position}|${player.team}`;
+            playerCounts[key] = (playerCounts[key] || 0) + 1;
+          });
+        });
+
+        console.log(`📈 Player counts:`, Object.keys(playerCounts).length, 'unique players');
+
+        // Convert to exposure array with percentages
+        portfolioExposure = Object.entries(playerCounts).map(([key, count]) => {
+          const [name, position, team] = key.split('|');
+          return {
+            name: name.trim(),
+            position: position.trim(),
+            team: team.trim(),
+            count,
+            percentage: (count / totalDrafts) * 100
+          };
+        });
+
+        // Show top exposures
+        const topExposures = [...portfolioExposure]
+          .sort((a, b) => b.percentage - a.percentage)
+          .slice(0, 5);
+        console.log('🔝 Top 5 exposures:', topExposures);
+
+        portfolioLastSync = new Date().toLocaleString();
+        console.log(`✅ Loaded exposure for ${portfolioExposure.length} players from ${totalDrafts} drafts`);
+        
+        alert(`✅ Successfully synced!\n\n${portfolioExposure.length} players from ${totalDrafts} drafts\n\nTop exposures:\n${topExposures.map(p => `${p.name} ${p.percentage.toFixed(0)}%`).join('\n')}`);
+        
+        // Re-render to show exposure data
+        renderPlayers();
+        updateSyncStatus();
+      } catch (error) {
+        console.error('❌ Error loading portfolio exposure:', error);
+        alert(`Error loading portfolio: ${error.message}`);
+      }
+    }
+
+    function getPlayerExposure(player) {
+      if (portfolioExposure.length === 0) return null;
+      
+      // Normalize team names for matching
+      const normalizeTeam = (team) => {
+        if (!team || team === 'F/A' || team === 'F / A' || team.trim() === '') return 'ROOKIE';
+        return team.trim().toUpperCase();
+      };
+
+      const exposure = portfolioExposure.find(exp => {
+        const nameMatch = exp.name.toLowerCase() === player.name.toLowerCase();
+        const posMatch = exp.position === player.position;
+        const teamMatch = normalizeTeam(exp.team) === normalizeTeam(player.team);
+        return nameMatch && posMatch && teamMatch;
+      });
+
+      return exposure || null;
+    }
+
+    function updateSyncStatus() {
+      const statusEl = document.getElementById('exposureSyncStatus');
+      if (statusEl) {
+        if (portfolioLastSync) {
+          statusEl.innerHTML = `
+            <span style="color: #3fb950;">✓ Synced</span>
+            <span style="color: #7d8590; font-size: 0.75rem; margin-left: 0.5rem;">${portfolioLastSync}</span>
+          `;
+        } else {
+          statusEl.innerHTML = `<span style="color: #7d8590;">Not synced</span>`;
+        }
+      }
+    }
+
+    // ===== END PORTFOLIO INTEGRATION =====
+
+    function renderPlayers() {
+      const playerList = document.getElementById('playerList');
+      const filtered = getFilteredPlayers();
+      
+      if (filtered.length === 0) {
+        playerList.innerHTML = `
+          <div class="empty-state">
+            <div class="empty-state-icon">🔍</div>
+            <div class="empty-state-text">No players found</div>
+            <div class="empty-state-subtext">Try adjusting your filters or search</div>
+          </div>
+        `;
+        return;
+      }
+      
+      playerList.innerHTML = filtered.map((player, index) => {
+        const exposure = getPlayerExposure(player);
+        
+        // Debug first few players
+        if (index < 3) {
+          console.log(`Player: ${player.name}, Exposure:`, exposure);
+        }
+        
+        const exposureBadge = exposure 
+          ? `<div class="exposure-badge" style="
+              background: ${exposure.percentage >= 25 ? '#da3633' : exposure.percentage >= 15 ? '#d29922' : '#3fb950'}; 
+              color: white; 
+              padding: 4px 10px; 
+              border-radius: 12px; 
+              font-size: 0.875rem; 
+              font-weight: 800;
+              white-space: nowrap;
+              justify-self: start;
+              letter-spacing: 0.3px;
+            ">${exposure.percentage.toFixed(0)}%</div>`
+          : '';
+        
+        return `
+        <div class="player-item ${currentDensity}" draggable="true" data-index="${index}" data-id="${player.id}">
+          <div class="rank">#${player.rank}</div>
+          <div class="player-info">
+            <div class="player-name">${player.name}</div>
+            <div class="player-meta">${player.team}</div>
+          </div>
+          <div class="move-buttons">
+            <button class="move-btn" onclick="movePlayer(${player.id}, -1)" ${index === 0 ? 'disabled' : ''}>↑</button>
+            <button class="move-btn" onclick="movePlayer(${player.id}, 1)" ${index === filtered.length - 1 ? 'disabled' : ''}>↓</button>
+          </div>
+          <div class="position-badge position-${player.position}">${player.position}</div>
+          ${player.adp ? `<div class="adp-badge">ADP ${player.adp}</div>` : '<div class="adp-badge">—</div>'}
+          ${exposureBadge}
+        </div>
+      `;
+      }).join('');
+      
+      // Add drag and drop handlers
+      document.querySelectorAll('.player-item').forEach(item => {
+        item.addEventListener('dragstart', handleDragStart);
+        item.addEventListener('dragend', handleDragEnd);
+        item.addEventListener('dragover', handleDragOver);
+        item.addEventListener('dragenter', handleDragEnter);
+        item.addEventListener('dragleave', handleDragLeave);
+        item.addEventListener('drop', handleDrop);
+      });
+      
+      // Apply team colors based on current theme
+      applyTeamColors();
+    }
+    
+    // Apply team colors to player cards based on current theme
+    function applyTeamColors() {
+      const currentTheme = localStorage.getItem('ranks_theme') || 'dark'; // Updated default
+      
+      document.querySelectorAll('.player-item').forEach(el => {
+        const teamEl = el.querySelector('.player-meta');
+        if (teamEl) {
+          const team = teamEl.textContent.trim();
+          // Changed default for teamless/rookie players to visible gray
+          const teamColor = teamColors[team] || '#9ca3af';
+          el.style.background = teamColor;
+          el.style.borderColor = teamColor;
+        }
+        
+        // All text white on player cards (works for both themes)
+        const nameEl = el.querySelector('.player-name');
+        if (nameEl) nameEl.style.color = '#ffffff';
+        const metaEl = el.querySelector('.player-meta');
+        if (metaEl) metaEl.style.color = '#ffffff';
+        const rankEl = el.querySelector('.rank');
+        if (rankEl) rankEl.style.color = '#ffffff';
+        const positionEl = el.querySelector('.position-badge');
+        if (positionEl) positionEl.style.color = '#ffffff';
+        const adpEl = el.querySelector('.adp-badge');
+        if (adpEl) adpEl.style.color = '#ffffff';
+      });
+    }
+
+    function handleDragStart(e) {
+      draggedElement = this;
+      draggedIndex = parseInt(this.dataset.index);
+      this.classList.add('dragging');
+      e.dataTransfer.effectAllowed = 'move';
+      e.dataTransfer.setData('text/html', this.innerHTML);
+      
+      // Create drop indicator
+      const indicator = document.createElement('div');
+      indicator.className = 'drop-indicator';
+      indicator.id = 'dropIndicator';
+      document.getElementById('playerList').appendChild(indicator);
+      
+      // Create ghost preview
+      const ghost = this.cloneNode(true);
+      ghost.id = 'dragGhost';
+      ghost.style.position = 'absolute';
+      ghost.style.opacity = '0.4';
+      ghost.style.pointerEvents = 'none';
+      ghost.style.zIndex = '9999';
+      ghost.style.width = this.offsetWidth + 'px';
+      ghost.classList.remove('dragging');
+      ghost.classList.add('drag-ghost');
+      document.getElementById('playerList').appendChild(ghost);
+    }
+
+    function handleDragEnd(e) {
+      this.classList.remove('dragging');
+      document.querySelectorAll('.player-item').forEach(item => {
+        item.classList.remove('drag-over');
+      });
+      
+      // Remove drop indicator
+      const indicator = document.getElementById('dropIndicator');
+      if (indicator) {
+        indicator.remove();
+      }
+      
+      // Remove ghost preview
+      const ghost = document.getElementById('dragGhost');
+      if (ghost) {
+        ghost.remove();
+      }
+      
+      // Clear auto-scroll interval
+      if (window.autoScrollInterval) {
+        clearInterval(window.autoScrollInterval);
+        window.autoScrollInterval = null;
+      }
+    }
+
+    function handleDragOver(e) {
+      e.preventDefault();
+      e.dataTransfer.dropEffect = 'move';
+      
+      const playerList = document.getElementById('playerList');
+      const listRect = playerList.getBoundingClientRect();
+      const mouseY = e.clientY;
+      
+      // AUTO-SCROLL with larger zones and variable speed
+      const SCROLL_ZONE = 150; // Larger zone (was just edge before)
+      const MAX_SCROLL_SPEED = 20;
+      
+      // Clear existing auto-scroll
+      if (window.autoScrollInterval) {
+        clearInterval(window.autoScrollInterval);
+        window.autoScrollInterval = null;
+      }
+      
+      // Check if near top or bottom
+      const distanceFromTop = mouseY - listRect.top;
+      const distanceFromBottom = listRect.bottom - mouseY;
+      
+      if (distanceFromTop < SCROLL_ZONE && distanceFromTop > 0) {
+        // Near top - scroll up
+        const intensity = 1 - (distanceFromTop / SCROLL_ZONE); // 0 to 1
+        const scrollSpeed = Math.ceil(intensity * MAX_SCROLL_SPEED);
+        window.autoScrollInterval = setInterval(() => {
+          playerList.scrollTop -= scrollSpeed;
+        }, 16); // ~60fps
+      } else if (distanceFromBottom < SCROLL_ZONE && distanceFromBottom > 0) {
+        // Near bottom - scroll down
+        const intensity = 1 - (distanceFromBottom / SCROLL_ZONE);
+        const scrollSpeed = Math.ceil(intensity * MAX_SCROLL_SPEED);
+        window.autoScrollInterval = setInterval(() => {
+          playerList.scrollTop += scrollSpeed;
+        }, 16);
+      }
+      
+      // Update ghost preview position
+      const ghost = document.getElementById('dragGhost');
+      if (ghost) {
+        ghost.style.top = (e.clientY - listRect.top + playerList.scrollTop - 30) + 'px';
+        ghost.style.left = (this.offsetLeft) + 'px';
+      }
+      
+      // Update drop indicator position with SNAP-TO-GRID feel
+      const indicator = document.getElementById('dropIndicator');
+      if (indicator && this !== draggedElement) {
+        const rect = this.getBoundingClientRect();
+        
+        // Determine if we should show indicator above or below this item
+        const itemMiddle = rect.top + rect.height / 2;
+        
+        // SNAP: Only update position when crossing middle threshold
+        let targetTop;
+        if (mouseY < itemMiddle) {
+          // Snap to top of item
+          targetTop = rect.top - listRect.top + playerList.scrollTop;
+        } else {
+          // Snap to bottom of item
+          targetTop = rect.bottom - listRect.top + playerList.scrollTop;
+        }
+        
+        // Smooth snap animation
+        indicator.style.top = targetTop + 'px';
+      }
+      
+      return false;
+    }
+
+    function handleDragEnter(e) {
+      if (this !== draggedElement) {
+        this.classList.add('drag-over');
+      }
+    }
+
+    function handleDragLeave(e) {
+      this.classList.remove('drag-over');
+    }
+
+    function handleDrop(e) {
+      e.stopPropagation();
+      e.preventDefault();
+
+      if (draggedElement !== this) {
+        const targetIndex = parseInt(this.dataset.index);
+        const filtered = getFilteredPlayers();
+        
+        const draggedPlayer = filtered[draggedIndex];
+        const targetPlayer = filtered[targetIndex];
+        const oldRank = draggedPlayer.rank;
+        const newRank = targetPlayer.rank;
+
+        // Insert logic - shift players between old and new position
+        if (draggedIndex < targetIndex) {
+          // Dragging down - shift players up
+          players.forEach(p => {
+            if (p.rank > oldRank && p.rank <= newRank) {
+              p.rank -= 1;
+            }
+          });
+        } else {
+          // Dragging up - shift players down
+          players.forEach(p => {
+            if (p.rank >= newRank && p.rank < oldRank) {
+              p.rank += 1;
+            }
+          });
+        }
+        
+        draggedPlayer.rank = newRank;
+
+        // Re-sort all players by rank
+        players.sort((a, b) => a.rank - b.rank);
+
+        saveToLocalStorage(); // Auto-save after reordering
+        renderPlayers();
+      }
+
+      return false;
+    }
+
+    // Move player up/down
+    function movePlayer(playerId, direction) {
+      const filtered = getFilteredPlayers();
+      const index = filtered.findIndex(p => p.id === playerId);
+      
+      if (index === -1) return;
+      if (direction === -1 && index === 0) return;
+      if (direction === 1 && index === filtered.length - 1) return;
+
+      const player = filtered[index];
+      const newIndex = index + direction;
+      const newRank = filtered[newIndex].rank;
+      
+      // Moving up (direction = -1): shift everyone between newRank and player.rank down by 1
+      // Moving down (direction = 1): shift everyone between player.rank and newRank up by 1
+      if (direction === -1) {
+        // Moving up - shift players down
+        players.forEach(p => {
+          if (p.rank >= newRank && p.rank < player.rank) {
+            p.rank += 1;
+          }
+        });
+        player.rank = newRank;
+      } else {
+        // Moving down - shift players up
+        players.forEach(p => {
+          if (p.rank > player.rank && p.rank <= newRank) {
+            p.rank -= 1;
+          }
+        });
+        player.rank = newRank;
+      }
+
+      // Re-sort
+      players.sort((a, b) => a.rank - b.rank);
+      saveToLocalStorage(); // Auto-save after moving player
+      renderPlayers();
+    }
+
+    // Export CSV
+    function exportCSV() {
+      const csv = players
+        .sort((a, b) => a.rank - b.rank)
+        .map(p => `${p.name}, ${p.position}, ${p.team}, ${p.rank}, ${p.adp || ''}`)
+        .join('\n');
+
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.style.display = 'none';
+      a.href = url;
+      a.download = 'player-rankings.csv';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
+      
+      // Show confirmation
+      const btn = document.getElementById('exportBtn');
+      const originalText = btn.textContent;
+      btn.textContent = '✓ Exported';
+      setTimeout(() => {
+        btn.textContent = originalText;
+      }, 2000);
+    }
+
+    // Import CSV
+    function importCSV(file) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        try {
+          const csvText = e.target.result;
+          const lines = csvText.trim().split('\n');
+          
+          // Parse imported data
+          const importedPlayers = lines.map((line, index) => {
+            const parts = line.split(',').map(s => s.trim());
+            return {
+              id: index,
+              name: parts[0],
+              position: parts[1],
+              team: parts[2],
+              rank: parseInt(parts[3]),
+              adp: parts[4] ? parseFloat(parts[4]) : null
+            };
+          });
+
+          // Update players array
+          players = importedPlayers;
+          saveToLocalStorage(); // Auto-save after import
+          updateStats();
+          renderPlayers();
+
+          // Show confirmation
+          const btn = document.getElementById('importBtn');
+          const originalText = btn.textContent;
+          btn.textContent = '✓ Imported';
+          setTimeout(() => {
+            btn.textContent = originalText;
+          }, 2000);
+        } catch (error) {
+          alert('Error importing CSV. Please check the file format.');
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    // Import from Text
+    function importFromText(text) {
+      try {
+        const lines = text.trim().split('\n');
+        
+        // Parse imported data
+        const importedPlayers = lines.map((line, index) => {
+          const parts = line.split(',').map(s => s.trim());
+          return {
+            id: index,
+            name: parts[0],
+            position: parts[1],
+            team: parts[2],
+            rank: parseInt(parts[3]),
+            adp: parts[4] ? parseFloat(parts[4]) : null
+          };
+        });
+
+        // Update players array
+        players = importedPlayers;
+        saveToLocalStorage(); // Auto-save after import
+        updateStats();
+        renderPlayers();
+
+        // Show confirmation
+        const btn = document.getElementById('importTextBtn');
+        const originalText = btn.textContent;
+        btn.textContent = '✓ Imported';
+        setTimeout(() => {
+          btn.textContent = originalText;
+        }, 2000);
+
+        return true;
+      } catch (error) {
+        alert('Error parsing text. Please check the format.');
+        return false;
+      }
+    }
+
+    // ============================================================================
+    // UNDERDOG FORMAT IMPORT/EXPORT
+    // ============================================================================
+
+    function importUnderdogCSV(file) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        try {
+          const csvText = e.target.result;
+          const lines = csvText.trim().split('\n');
+          
+          // Skip header row
+          const dataLines = lines.slice(1);
+          
+          // Limit to 500 players (Underdog has 1300+, we only need top 500)
+          const limitedDataLines = dataLines.slice(0, 500);
+          
+          // Parse Underdog CSV format
+          const importedPlayers = limitedDataLines.map((line, index) => {
+            // Handle quoted CSV fields
+            const fields = [];
+            let current = '';
+            let inQuotes = false;
+            
+            for (let i = 0; i < line.length; i++) {
+              const char = line[i];
+              if (char === '"') {
+                inQuotes = !inQuotes;
+              } else if (char === ',' && !inQuotes) {
+                fields.push(current.trim());
+                current = '';
+              } else {
+                current += char;
+              }
+            }
+            fields.push(current.trim());
+            
+            // Parse fields: id, firstName, lastName, adp, projectedPoints, positionRank, slotName, teamName, lineupStatus, byeWeek
+            const id = fields[0]?.replace(/"/g, '') || '';
+            const firstName = fields[1]?.replace(/"/g, '') || '';
+            const lastName = fields[2]?.replace(/"/g, '') || '';
+            const adp = fields[3] ? parseFloat(fields[3].replace(/"/g, '')) : null;
+            const projectedPoints = fields[4] ? parseFloat(fields[4].replace(/"/g, '')) : null;
+            const positionRank = fields[5]?.replace(/"/g, '') || '';
+            const position = fields[6]?.replace(/"/g, '') || '';
+            const teamName = fields[7]?.replace(/"/g, '') || '';
+            const lineupStatus = fields[8]?.replace(/"/g, '') || '';
+            const byeWeek = fields[9]?.replace(/"/g, '') || '';
+            
+            // Construct full name safely
+            const fullName = [firstName, lastName].filter(Boolean).join(' ') || 'Unknown Player';
+            
+            // Convert team name to abbreviation (or use empty string for rookies/free agents)
+            let teamAbbr = teamName ? (TEAM_NAME_TO_ABBR[teamName] || teamName) : '';
+            
+            return {
+              id: index,
+              name: fullName,
+              position: position,
+              team: teamAbbr,
+              rank: index + 1,
+              adp: adp,
+              // Store Underdog metadata for export
+              underdogData: {
+                uuid: id,
+                firstName: firstName,
+                lastName: lastName,
+                projectedPoints: projectedPoints,
+                positionRank: positionRank,
+                teamName: teamName,
+                lineupStatus: lineupStatus,
+                byeWeek: byeWeek
+              }
+            };
+          });
+
+          // Update players array
+          players = importedPlayers;
+          saveToLocalStorage();
+          updateStats();
+          renderPlayers();
+
+          // Show confirmation
+          const btn = document.getElementById('importUnderdogBtn');
+          const originalText = btn.textContent;
+          btn.textContent = `✓ Imported ${importedPlayers.length}`;
+          setTimeout(() => {
+            btn.textContent = originalText;
+          }, 2000);
+        } catch (error) {
+          console.error('Import error:', error);
+          alert(`Error importing Underdog CSV: ${error.message}\n\nPlease check the browser console for details.`);
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    function exportUnderdogCSV() {
+      // Check if we have Underdog metadata
+      const hasUnderdogData = players.length > 0 && players[0].underdogData;
+      
+      if (!hasUnderdogData) {
+        alert('No Underdog data found. Please import an Underdog CSV first before exporting.');
+        return;
+      }
+      
+      // Sort by current rank
+      const sortedPlayers = [...players].sort((a, b) => a.rank - b.rank);
+      
+      // Build CSV with Underdog format
+      const header = '"id","firstName","lastName","adp","projectedPoints","positionRank","slotName","teamName","lineupStatus","byeWeek"';
+      
+      const rows = sortedPlayers.map((player, index) => {
+        const ud = player.underdogData;
+        const teamName = player.team === '' || !player.team ? '' : (ABBR_TO_TEAM_NAME[player.team] || ud.teamName || '');
+        
+        // Update positionRank based on current position in list
+        const posOfSameType = sortedPlayers
+          .filter(p => p.position === player.position)
+          .findIndex(p => p.id === player.id) + 1;
+        const newPositionRank = `${player.position}${posOfSameType}`;
+        
+        return `"${ud.uuid}","${ud.firstName}","${ud.lastName}","${player.adp || ''}","${ud.projectedPoints || ''}","${newPositionRank}","${player.position}","${teamName}","${ud.lineupStatus}","${ud.byeWeek}"`;
+      });
+      
+      const csv = [header, ...rows].join('\n');
+      
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.style.display = 'none';
+      a.href = url;
+      a.download = 'underdog-rankings.csv';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
+      
+      // Show confirmation
+      const btn = document.getElementById('exportUnderdogBtn');
+      const originalText = btn.textContent;
+      btn.textContent = '✓ Exported';
+      setTimeout(() => {
+        btn.textContent = originalText;
+      }, 2000);
+    }
+
+    // Clear All Players
+    function clearAll() {
+      clearSavedData(); // This now handles the confirmation and localStorage clearing
+    }
+
+    // Event listeners
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentFilter = btn.dataset.filter;
+        renderPlayers();
+      });
+    });
+
+    // Density toggle event listeners
+    document.querySelectorAll('.density-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.density-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentDensity = btn.dataset.density;
+        renderPlayers();
+      });
+    });
+
+    // Sort dropdown event listener
+    document.getElementById('sortSelect').addEventListener('change', (e) => {
+      currentSort = e.target.value;
+      renderPlayers();
+    });
+
+    document.getElementById('searchInput').addEventListener('input', (e) => {
+      searchQuery = e.target.value;
+      renderPlayers();
+    });
+
+    document.getElementById('syncPortfolioBtn').addEventListener('click', () => {
+      loadPortfolioExposure();
+      const btn = document.getElementById('syncPortfolioBtn');
+      const originalText = btn.textContent;
+      btn.textContent = '✓ Synced';
+      btn.style.background = 'linear-gradient(135deg, #3fb950 0%, #2ea043 100%)';
+      setTimeout(() => {
+        btn.textContent = originalText;
+        btn.style.background = 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)';
+      }, 2000);
+    });
+
+    // Underdog format handlers
+    document.getElementById('exportUnderdogBtn').addEventListener('click', exportUnderdogCSV);
+    
+    document.getElementById('importUnderdogBtn').addEventListener('click', () => {
+      document.getElementById('importUnderdogFile').click();
+    });
+    
+    document.getElementById('importUnderdogFile').addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        importUnderdogCSV(file);
+      }
+      e.target.value = ''; // Reset input
+    });
+    
+    document.getElementById('clearBtn').addEventListener('click', clearAll);
+
+    // Initialize
+    parseCSV();
+    loadPortfolioExposure(); // Auto-load exposure data
+    
+    // Check if user has dismissed help banner before
+    if (localStorage.getItem('hideRankingsHelp') === 'true') {
+      const helpBanner = document.getElementById('helpBanner');
+      if (helpBanner) {
+        helpBanner.style.display = 'none';
+      }
+    }
+  </script>
+  
+  <!-- Nav bar removed for clean UI -->
+  <script>
+    // Nav bar and theme toggle removed
+    
+    // NFL Team Colors
+    
+    function toggleRanksTheme() {
+      const icon = document.getElementById('ranksThemeIcon');
+      const text = document.getElementById('ranksThemeText');
+      const controlBar = document.querySelector('div[style*="z-index: 99999"]');
+      const current = localStorage.getItem('ranks_theme') || 'dark'; // Changed default to 'dark'
+      const newTheme = current === 'light' ? 'dark' : 'light';
+      
+      localStorage.setItem('ranks_theme', newTheme);
+      
+      if (newTheme === 'dark') {
+        icon.textContent = '🌙';
+        text.textContent = 'Dark';
+        
+        // DARK THEME: Black/Charcoal background, team color cards with white text
+        document.body.style.background = '#0a0f16';
+        document.body.style.color = '#e8eaed';
+        
+        // Top bar
+        const topBar = document.querySelector('.top-bar');
+        if (topBar) {
+          topBar.style.background = 'linear-gradient(180deg, #0f1419 0%, #0a0f16 100%)';
+          topBar.style.borderBottom = '1px solid #1a2332';
+        }
+        
+        // All text elements
+        document.querySelectorAll('h1').forEach(el => el.style.color = '#e8eaed');
+        document.querySelectorAll('.subtitle').forEach(el => el.style.color = '#8b949e');
+        document.querySelectorAll('.logo').forEach(el => el.style.color = '#e8eaed');
+        
+        // Controls - dark backgrounds
+        document.querySelectorAll('.controls').forEach(el => {
+          el.style.background = '#0f1419';
+          el.style.borderColor = '#1a2332';
+        });
+        
+        // Stat cards - dark with proper text colors
+        document.querySelectorAll('.stat-card').forEach(el => {
+          el.style.background = '#0f1419';
+          el.style.borderColor = '#1a2332';
+        });
+        document.querySelectorAll('.stat-label').forEach(el => el.style.color = '#8b949e');
+        document.querySelectorAll('.stat-value').forEach(el => el.style.color = '#00a8e1');
+        
+        // Player list - dark background
+        const playerList = document.querySelector('.player-list');
+        if (playerList) {
+          playerList.style.background = '#0a0f16';
+          playerList.style.borderColor = '#1a2332';
+        }
+        
+        // Player items - Apply team colors with white text
+        document.querySelectorAll('.player-item').forEach(el => {
+          const teamEl = el.querySelector('.player-meta');
+          if (teamEl) {
+            const team = teamEl.textContent.trim();
+            const teamColor = teamColors[team] || '#9ca3af'; // Visible gray for rookies
+            el.style.background = teamColor;
+            el.style.borderColor = teamColor;
+          }
+          // ALL text white on player cards
+          const nameEl = el.querySelector('.player-name');
+          if (nameEl) nameEl.style.color = '#ffffff';
+          const metaEl = el.querySelector('.player-meta');
+          if (metaEl) metaEl.style.color = '#ffffff';
+          const rankEl = el.querySelector('.rank');
+          if (rankEl) rankEl.style.color = '#ffffff';
+          const positionEl = el.querySelector('.position-badge');
+          if (positionEl) positionEl.style.color = '#ffffff';
+          const adpEl = el.querySelector('.adp-badge');
+          if (adpEl) adpEl.style.color = '#ffffff';
+        });
+        
+        // Inputs - dark
+        document.querySelectorAll('input, select, textarea').forEach(el => {
+          el.style.background = '#0a0f16';
+          el.style.borderColor = '#1a2332';
+          el.style.color = '#e8eaed';
+        });
+        
+        // Buttons
+        document.querySelectorAll('.filter-btn').forEach(el => {
+          if (!el.classList.contains('active')) {
+            el.style.background = '#0a0f16';
+            el.style.borderColor = '#1a2332';
+            el.style.color = '#8b949e';
+          }
+        });
+        
+        // Control bar
+        if (controlBar) {
+          controlBar.style.background = 'rgba(10, 15, 22, 0.98)';
+          controlBar.style.borderBottom = '1px solid rgba(255, 255, 255, 0.1)';
+          controlBar.querySelector('div').style.color = '#e8eaed';
+        }
+        
+      } else {
+        icon.textContent = '☀️';
+        text.textContent = 'Light';
+        
+        // LIGHT THEME: White/Gray background, team color cards with white text
+        document.body.style.background = '#ffffff';
+        document.body.style.color = '#1a1a1a';
+        
+        // Top bar
+        const topBar = document.querySelector('.top-bar');
+        if (topBar) {
+          topBar.style.background = 'linear-gradient(180deg, #f8f9fa 0%, #ffffff 100%)';
+          topBar.style.borderBottom = '1px solid #dee2e6';
+        }
+        
+        // All text elements
+        document.querySelectorAll('h1').forEach(el => el.style.color = '#1a1a1a');
+        document.querySelectorAll('.subtitle').forEach(el => el.style.color = '#6c757d');
+        document.querySelectorAll('.logo').forEach(el => el.style.color = '#1a1a1a');
+        
+        // Controls - light backgrounds
+        document.querySelectorAll('.controls').forEach(el => {
+          el.style.background = '#f8f9fa';
+          el.style.borderColor = '#dee2e6';
+        });
+        
+        // Stat cards - darker gray for better contrast in light mode
+        document.querySelectorAll('.stat-card').forEach(el => {
+          el.style.background = '#e9ecef';
+          el.style.borderColor = '#dee2e6';
+        });
+        document.querySelectorAll('.stat-label').forEach(el => el.style.color = '#6c757d');
+        document.querySelectorAll('.stat-value').forEach(el => el.style.color = '#00a8e1');
+        
+        // Player list - white background
+        const playerList = document.querySelector('.player-list');
+        if (playerList) {
+          playerList.style.background = '#ffffff';
+          playerList.style.borderColor = '#dee2e6';
+        }
+        
+        // Player items - Apply team colors with white text
+        document.querySelectorAll('.player-item').forEach(el => {
+          const teamEl = el.querySelector('.player-meta');
+          if (teamEl) {
+            const team = teamEl.textContent.trim();
+            const teamColor = teamColors[team] || '#9ca3af'; // Visible gray for rookies
+            el.style.background = teamColor;
+            el.style.borderColor = teamColor;
+          }
+          // ALL text white on player cards (same as dark mode for consistency)
+          const nameEl = el.querySelector('.player-name');
+          if (nameEl) nameEl.style.color = '#ffffff';
+          const metaEl = el.querySelector('.player-meta');
+          if (metaEl) metaEl.style.color = '#ffffff';
+          const rankEl = el.querySelector('.rank');
+          if (rankEl) rankEl.style.color = '#ffffff';
+          const positionEl = el.querySelector('.position-badge');
+          if (positionEl) positionEl.style.color = '#ffffff';
+          const adpEl = el.querySelector('.adp-badge');
+          if (adpEl) adpEl.style.color = '#ffffff';
+        });
+        
+        // Inputs - light
+        document.querySelectorAll('input, select, textarea').forEach(el => {
+          el.style.background = '#ffffff';
+          el.style.borderColor = '#dee2e6';
+          el.style.color = '#1a1a1a';
+        });
+        
+        // Buttons
+        document.querySelectorAll('.filter-btn').forEach(el => {
+          if (!el.classList.contains('active')) {
+            el.style.background = '#ffffff';
+            el.style.borderColor = '#dee2e6';
+            el.style.color = '#6c757d';
+          }
+        });
+        
+        // Control bar
+        if (controlBar) {
+          controlBar.style.background = 'rgba(255, 255, 255, 0.98)';
+          controlBar.style.borderBottom = '1px solid rgba(0, 0, 0, 0.1)';
+          controlBar.querySelector('div').style.color = '#1a1a1a';
+        }
+      }
+    }
+    
+    // Initialize theme - DEFAULT TO DARK MODE
+    window.addEventListener('DOMContentLoaded', () => {
+      const savedTheme = localStorage.getItem('ranks_theme') || 'dark'; // Changed default to 'dark'
+      if (savedTheme === 'dark') {
+        setTimeout(() => toggleRanksTheme(), 150);
+      }
+    });
+  </script>
+</body>
+</html>
