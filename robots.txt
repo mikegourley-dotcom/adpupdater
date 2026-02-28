@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://optimalfantasytools.com/sitemap.xml
+
+# Crawl delay (optional - be nice to smaller bots)
+Crawl-delay: 1
